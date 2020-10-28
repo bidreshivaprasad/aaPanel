@@ -120,3 +120,84 @@ yum install -y wget && wget -O install.sh http://www.aapanel.com/script/install_
 ```bash
 wget -O install.sh http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && sudo bash install.sh
 ```
+
+##### Full Installation
+
+Centos Installation :-
+```bash
+yum install -y wget && wget -O install.sh http://www.aapanel.com/script/install_6.0_en.sh && bash install.sh
+```
+Ubuntu/Deepin Installation :-
+```bash
+wget -O install.sh http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && sudo bash install.sh
+```
+Debian Installation :-
+```bash
+wget -O install.sh http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && bash install.sh
+```
+Fedora Installation :-
+```bash
+yum install -y wget && wget -O install.sh http://www.aapanel.com/script/install_6.0_en.sh && bash install.sh
+```
+### Management
+Stop :-
+```bash
+service bt stop
+```
+Start :-
+```bash
+service bt start
+```
+Restart :- 
+```bash
+service bt restart
+```
+### Uninstall
+```bash
+service bt stop && chkconfig --del bt && rm -f /etc/init.d/bt && rm -rf /www/server/panel
+```
+### View current port of control panel
+```bash
+cat /www/server/panel/data/port.pl
+```
+### Change port of control panel，e.g. 8881（centos 6 Operation System）
+```bash
+echo '8881' > /www/server/panel/data/port.pl && service bt restart
+iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 8881 -j ACCEPT
+service iptables save
+service iptables restart
+```
+### Change port of control panel，e.g. 8881（centos 7 Operation System）
+```bash
+echo '8881' > /www/server/panel/data/port.pl && service bt restart
+firewall-cmd --permanent --zone=public --add-port=8881/tcp
+firewall-cmd --reload
+```
+### Force to change MySQL manager (root) Password，e.g. 123456
+```bash
+cd /www/server/panel && python tools.py root 123456
+```
+### Change control Panel login password，e.g. 123456
+```bash
+cd /www/server/panel && python tools.py panel 123456
+```
+### Site Configuration location
+```bash
+/www/server/panel/vhost
+```
+### Start
+```bash
+service memcached start
+```
+### Stop
+```bash
+service memcached stop
+```
+### Restart
+```bash
+service memcached restart
+```
+### Reload
+```bash
+service memcached reload
+```
